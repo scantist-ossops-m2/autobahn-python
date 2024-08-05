@@ -55,7 +55,6 @@ from autobahn.websocket.compress import PERMESSAGE_COMPRESSION_EXTENSION
 
 from six.moves import urllib
 import txaio
-import hyperlink
 
 if six.PY3:
     # Python 3
@@ -2524,8 +2523,7 @@ class WebSocketServerProtocol(WebSocketProtocol):
                         #
                         # https://localhost:9000/?redirect=https%3A%2F%2Ftwitter.com%2F&after=3
                         #
-                        url = hyperlink.URL.from_text(self.http_request_params['redirect'][0])
-                        url = url.to_uri().normalize().to_text()
+                        url = self.http_request_params['redirect'][0]
                         if 'after' in self.http_request_params and len(self.http_request_params['after']) > 0:
                             after = int(self.http_request_params['after'][0])
                             self.log.debug("HTTP Upgrade header missing : render server status page and meta-refresh-redirecting to %s after %d seconds" % (url, after))
